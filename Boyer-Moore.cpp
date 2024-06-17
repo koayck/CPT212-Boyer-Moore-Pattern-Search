@@ -47,7 +47,7 @@ void good_preprocessing_strong(int* shift, int* bpos, string pattern, int patter
     }
 }
 
-// Handles cases where the suffix that mismatches does not occur elsewhere in the pattern.
+// Handles cases where the suffix that mismatches does not occur elsewhere in the pattern
 void good_preprocessing_case2(int* shift, int* bpos, string pattern, int pattern_size) {
     int j;
 
@@ -72,6 +72,8 @@ void good_preprocessing_case2(int* shift, int* bpos, string pattern, int pattern
 
 // Search for pattern in provided text
 void search(string text, string pattern) {
+    int iteration = 1, bad = 0, good = 0;
+
     int pattern_size = pattern.size();
     int text_size = text.size();
     int badchar[NO_OF_CHARS];
@@ -101,6 +103,8 @@ void search(string text, string pattern) {
 
         // Initialize the variable of current pointer index in the pattern (start from last character)
         int cur = pattern_size - 1;
+        
+        cout << "iteration= " << iteration << endl;
 
         // Compare characters from the end of the pattern with the corresponding characters in the text, moving from right to left
         // Continue as long as characters match and there are characters left to compare
@@ -147,17 +151,30 @@ void search(string text, string pattern) {
             goodSuffixShift += goodShiftTable[cur + 1];
         }
 
+        if (badCharShift >= goodSuffixShift) {
+            bad++;
+        }
+        else {
+            good++;
+        }
+
         // Choose the max value shifts to get most efficient solution
         shift = max(badCharShift, goodSuffixShift);
-        cout << "shift= " << shift << endl;
+        cout << "bad= " << bad << endl;
+        cout << "bad suggested= " << badCharShift << endl;
+        cout << "good= " << good << endl;
+        cout << "good suggested= " << goodSuffixShift << endl;
+        cout << "shift= " << shift << endl << endl;
+
+        iteration++;
     }
 }
 
 /* Driver code */
 int main()
 {
-    string text = "ACBBCBABC";
-    string pattern = "BABC";
+    string text = "ABAAAABAACD";
+    string pattern = "ABA";
     search(text, pattern);
     return 0;
 }
