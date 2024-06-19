@@ -48,7 +48,7 @@ void good_preprocessing_strong(int* shift, int* bpos, string pattern, int patter
 }
 
 // Handles cases where the suffix that mismatches does not occur elsewhere in the pattern
-void good_preprocessing_case2(int* shift, int* bpos, string pattern, int pattern_size) {
+void good_preprocessing_case2(int* shift, int* bpos, int pattern_size) {
     int j;
 
     // initialize j to the border position for the whole pattern
@@ -91,7 +91,7 @@ void search(string text, string pattern) {
     // Create the lookup table for the good suffix heuristic using preprocessing functions
     // goodShiftTable[cur + 1] stores how much the pattern needs to be shifted to right if a mismatch occurs at pattern[cur]
     good_preprocessing_strong(goodShiftTable, bpos, pattern, pattern_size);
-    good_preprocessing_case2(goodShiftTable, bpos, pattern, pattern_size);
+    good_preprocessing_case2(goodShiftTable, bpos, pattern_size);
 
     // Initialize the counter to record how many shifts done after each compare
     int shift = 0;
@@ -173,8 +173,8 @@ void search(string text, string pattern) {
 /* Driver code */
 int main()
 {
-    string text = "ABAAAABAACD";
-    string pattern = "ABA";
+    string text = "AAAAAAAAAAAAAAA";
+    string pattern = "AAAAAB";
     search(text, pattern);
     return 0;
 }
