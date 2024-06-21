@@ -170,11 +170,24 @@ void search(string text, string pattern) {
     }
 }
 
-/* Driver code */
-int main()
-{
-    string text = "AAAAAAAAAAAAAAA";
-    string pattern = "AAAAAB";
-    search(text, pattern);
+// Driver code
+int main() {
+    string text, pattern;
+
+    while (true) {
+        cout << "Enter the text: " << endl;
+        cin >> text;
+        cout << "Enter the pattern you want to find: " << endl;
+        cin >> pattern;
+
+        if (text.size() < pattern.size()) {
+            cout << "The text should be longer than the pattern!" << endl;
+        }
+        else {
+            search(text, pattern);
+            break;
+        }
+    }
+    
     return 0;
 }
